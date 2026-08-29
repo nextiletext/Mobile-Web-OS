@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Mobile Web OS</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    body {
+      background: #0f172a;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      overflow: hidden;
+    }
+
+    /* Mobile Device Frame */
+    .phone-container {
+      width: 375px;
+      height: 750px;
+      background: #000;
+      border-radius: 40px;
+      border: 12px solid #1e293b;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Screen Area */
+    .screen {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6, #ec4899);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Top Status Bar */
+    .status-bar {
+      height: 40px;
+      padding: 0 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: white;
+      font-size: 14px;
+      font-weight: 600;
+      z-index: 100;
+    }
+
+    /* App Grid Layout */
+    .home-screen {
+      flex: 1;
+      padding: 20px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-auto-rows: max-content;
+      gap: 20px 15px;
+    }
+
+    .app-icon {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+      transition: transform 0.15s ease;
+    }
+
+    .app-icon:active {
+      transform: scale(0.9);
+    }
+
+    .icon-box {
+      width: 60px;
+      height: 60px;
+      border-radius: 16px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 28px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .app-name {
+      color: white;
+      font-size: 11px;
+      margin-top: 6px;
+      text-align: center;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+    }
+
+    /* Application Window */
+    .app-window {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #f8fafc;
+      z-index: 50;
+      display: flex;
+      flex-direction: column;
+      transform: translateY(100%);
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .app-window.active {
+      transform: translateY(0);
+    }
+
+    .app-header {
+      height: 50px;
+      background: #ffffff;
+      border-bottom: 1px solid #e2e8f0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px;
+      margin-top: 30px;
+    }
+
+    .app-title {
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    .app-body {
+      flex: 1;
+      padding: 20px;
+      overflow-y: auto;
+      color: #334155;
+    }
+
+    /* Home Indicator Navigation Bar */
+    .home-bar-container {
+      height: 25px;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: absolute;
+      bottom: 0;
+      z-index: 101;
+      cursor: pointer;
+    }
+
+    .home-bar {
+      width: 130px;
+      height: 5px;
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 3px;
+    }
+
+    .app-window .home-bar {
+      background: #0f172a;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="phone-container">
+    <div class="screen">
+      
+      <!-- System Status Bar -->
+      <div class="status-bar">
+        <span id="clock">12:00</span>
+        <span>100% 🔋</span>
+      </div>
+
+      <!-- Main Mobile Home Screen -->
+      <div class="home-screen">
+        <div class="app-icon" onclick="openApp('notesApp')">
+          <div class="icon-box" style="background: #f59e0b;">📝</div>
+          <span class="app-name">Notes</span>
+        </div>
+        <div class="app-icon" onclick="openApp('calcApp')">
+          <div class="icon-box" style="background: #10b981;">🔢</div>
+          <span class="app-name">Calculator</span>
+        </div>
+        <div class="app-icon" onclick="openApp('settingsApp')">
+          <div class="icon-box" style="background: #64748b;">⚙️</div>
+          <span class="app-name">Settings</span>
+        </div>
+      </div>
+
+      <!-- Notes App Window -->
+      <div id="notesApp" class="app-window">
+        <div class="app-header">
+          <span class="app-title">Notes</span>
+        </div>
+        <div class="app-body">
+          <textarea id="noteInput" style="width:100%; height:80%; padding:10px; border-radius:8px; border:1px solid #cbd5e1;" placeholder="Type your note..."></textarea>
+        </div>
+      </div>
+
+      <!-- Settings App Window -->
+      <div id="settingsApp" class="app-window">
+        <div class="app-header">
+          <span class="app-title">Settings</span>
+        </div>
+        <div class="app-body">
+          <h3>Web Mobile OS v1.0</h3>
+          <p style="margin-top:10px;">Single-file architecture using DOM transitions and embedded storage.</p>
+        </div>
+      </div>
+
+      <!-- Bottom Home Bar Indicator -->
+      <div class="home-bar-container" onclick="closeAllApps()">
+        <div class="home-bar"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    // System Clock Functionality
+    function updateClock() {
+      const now = new Date();
+      const hours = String(now.getHours()).padStart(2, '0');
+      const minutes = String(now.getMinutes()).padStart(2, '0');
+      document.getElementById('clock').textContent = `${hours}:${minutes}`;
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    // App Window Manager
+    function openApp(appId) {
+      const app = document.getElementById(appId);
+      if (app) {
+        app.classList.add('active');
+      }
+    }
+
+    function closeAllApps() {
+      const apps = document.querySelectorAll('.app-window');
+      apps.forEach(app => app.classList.remove('active'));
+    }
+
+    // Persistent Note Storage
+    const noteInput = document.getElementById('noteInput');
+    noteInput.value = localStorage.getItem('webos_note') || '';
+    noteInput.addEventListener('input', (e) => {
+      localStorage.setItem('webos_note', e.target.value);
+    });
+  </script>
+</body>
+</html>
