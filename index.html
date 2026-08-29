@@ -22,12 +22,12 @@
       overflow: hidden;
     }
 
-    /* Vertical OS Container directly centered with no outer bezel */
+    /* Screen Container */
     .screen {
       width: 390px;
       height: 844px;
       max-height: 100vh;
-      background: linear-gradient(135deg, #3b82f6, #8b5cf6, #ec4899);
+      background: linear-gradient(135deg, #0f172a, #1e1b4b, #311042);
       position: relative;
       display: flex;
       flex-direction: column;
@@ -44,7 +44,88 @@
       color: white;
       font-size: 14px;
       font-weight: 600;
-      z-index: 100;
+      z-index: 1000;
+    }
+
+    /* Lock Screen Overlay */
+    .lock-screen {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(25px);
+      z-index: 900;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      padding: 60px 20px 40px;
+      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .lock-screen.unlocked {
+      transform: translateY(-100%);
+    }
+
+    .lock-clock {
+      color: white;
+      font-size: 64px;
+      font-weight: 200;
+      text-align: center;
+    }
+
+    .lock-date {
+      color: #94a3b8;
+      font-size: 16px;
+      margin-top: -10px;
+    }
+
+    .passcode-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .passcode-dots {
+      display: flex;
+      gap: 12px;
+    }
+
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      border: 2px solid white;
+    }
+
+    .dot.filled {
+      background: white;
+    }
+
+    .keypad {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+    }
+
+    .key {
+      width: 65px;
+      height: 65px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.15);
+      color: white;
+      font-size: 24px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .key:active {
+      background: rgba(255, 255, 255, 0.4);
     }
 
     /* App Grid Layout */
@@ -62,7 +143,6 @@
       flex-direction: column;
       align-items: center;
       cursor: pointer;
-      transition: transform 0.15s ease;
     }
 
     .app-icon:active {
@@ -77,7 +157,7 @@
       justify-content: center;
       align-items: center;
       font-size: 30px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     }
 
     .app-name {
@@ -85,10 +165,9 @@
       font-size: 12px;
       margin-top: 6px;
       text-align: center;
-      text-shadow: 0 1px 3px rgba(0,0,0,0.6);
     }
 
-    /* Application Window */
+    /* App Windows */
     .app-window {
       position: absolute;
       top: 0;
@@ -96,7 +175,7 @@
       width: 100%;
       height: 100%;
       background: #f8fafc;
-      z-index: 50;
+      z-index: 500;
       display: flex;
       flex-direction: column;
       transform: translateY(100%);
@@ -126,12 +205,138 @@
 
     .app-body {
       flex: 1;
-      padding: 20px;
-      overflow-y: auto;
-      color: #334155;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
     }
 
-    /* Home Indicator Navigation Bar */
+    /* Calculator Styles */
+    .calc-display {
+      background: #0f172a;
+      color: white;
+      font-size: 36px;
+      padding: 20px;
+      text-align: right;
+      height: 100px;
+    }
+
+    .calc-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      flex: 1;
+      gap: 1px;
+      background: #cbd5e1;
+    }
+
+    .calc-btn {
+      background: white;
+      border: none;
+      font-size: 20px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .calc-btn.op {
+      background: #f59e0b;
+      color: white;
+    }
+
+    /* Google App Styles */
+    .google-body {
+      background: #ffffff;
+      padding: 20px;
+      align-items: center;
+      overflow-y: auto;
+    }
+
+    .google-logo-text {
+      font-size: 38px;
+      font-weight: 700;
+      margin-top: 30px;
+      margin-bottom: 24px;
+      letter-spacing: -1px;
+    }
+
+    .g-blue { color: #4285F4; }
+    .g-red { color: #EA4335; }
+    .g-yellow { color: #FBBC05; }
+    .g-green { color: #34A853; }
+
+    .search-box {
+      width: 100%;
+      max-width: 320px;
+      display: flex;
+      align-items: center;
+      background: #ffffff;
+      border: 1px solid #dfe1e5;
+      border-radius: 24px;
+      padding: 10px 16px;
+      box-shadow: 0 1px 6px rgba(32,33,36,0.12);
+    }
+
+    .search-box:focus-within {
+      box-shadow: 0 2px 8px rgba(32,33,36,0.2);
+    }
+
+    .search-input {
+      border: none;
+      outline: none;
+      flex: 1;
+      font-size: 15px;
+      margin-left: 8px;
+    }
+
+    .search-results {
+      width: 100%;
+      margin-top: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .result-card {
+      background: #f8fafc;
+      padding: 12px;
+      border-radius: 12px;
+      border: 1px solid #e2e8f0;
+      text-align: left;
+    }
+
+    .result-url {
+      font-size: 11px;
+      color: #64748b;
+    }
+
+    .result-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: #1a0dab;
+      margin: 2px 0;
+    }
+
+    .result-snippet {
+      font-size: 12px;
+      color: #475569;
+    }
+
+    .pill-container {
+      display: flex;
+      gap: 8px;
+      margin-top: 16px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .pill {
+      background: #f1f5f9;
+      padding: 6px 12px;
+      border-radius: 16px;
+      font-size: 12px;
+      color: #334155;
+      cursor: pointer;
+    }
+
+    /* Home Bar Navigation */
     .home-bar-container {
       height: 30px;
       width: 100%;
@@ -140,7 +345,7 @@
       align-items: center;
       position: absolute;
       bottom: 0;
-      z-index: 101;
+      z-index: 1001;
       cursor: pointer;
     }
 
@@ -158,49 +363,134 @@
 </head>
 <body>
 
-  <!-- Clean Vertical Screen Container -->
   <div class="screen">
     
-    <!-- System Status Bar -->
     <div class="status-bar">
-      <span id="clock">12:00</span>
+      <span class="clock">12:00</span>
       <span>100% 🔋</span>
     </div>
 
-    <!-- Main Mobile Home Screen -->
+    <!-- Lock Screen Component -->
+    <div id="lockScreen" class="lock-screen">
+      <div>
+        <div class="lock-clock clock">12:00</div>
+        <div class="lock-date">Passcode: 1234</div>
+      </div>
+      <div class="passcode-container">
+        <div class="passcode-dots">
+          <div class="dot"></div><div class="dot"></div>
+          <div class="dot"></div><div class="dot"></div>
+        </div>
+        <div class="keypad">
+          <div class="key" onclick="pressKey('1')">1</div>
+          <div class="key" onclick="pressKey('2')">2</div>
+          <div class="key" onclick="pressKey('3')">3</div>
+          <div class="key" onclick="pressKey('4')">4</div>
+          <div class="key" onclick="pressKey('5')">5</div>
+          <div class="key" onclick="pressKey('6')">6</div>
+          <div class="key" onclick="pressKey('7')">7</div>
+          <div class="key" onclick="pressKey('8')">8</div>
+          <div class="key" onclick="pressKey('9')">9</div>
+          <div class="key" style="grid-column: 2" onclick="pressKey('0')">0</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Mobile Launcher -->
     <div class="home-screen">
       <div class="app-icon" onclick="openApp('notesApp')">
         <div class="icon-box" style="background: #f59e0b;">📝</div>
         <span class="app-name">Notes</span>
       </div>
-      <div class="app-icon" onclick="openApp('settingsApp')">
-        <div class="icon-box" style="background: #64748b;">⚙️</div>
-        <span class="app-name">Settings</span>
+      <div class="app-icon" onclick="openApp('calcApp')">
+        <div class="icon-box" style="background: #10b981;">🔢</div>
+        <span class="app-name">Calc</span>
+      </div>
+      <div class="app-icon" onclick="openApp('paintApp')">
+        <div class="icon-box" style="background: #ec4899;">🎨</div>
+        <span class="app-name">Paint</span>
+      </div>
+      <div class="app-icon" onclick="openApp('googleApp')">
+        <div class="icon-box" style="background: #ffffff;">🔍</div>
+        <span class="app-name">Google</span>
       </div>
     </div>
 
     <!-- Notes App Window -->
     <div id="notesApp" class="app-window">
-      <div class="app-header">
-        <span class="app-title">Notes</span>
-      </div>
-      <div class="app-body">
-        <textarea id="noteInput" style="width:100%; height:80%; padding:12px; border-radius:10px; border:1px solid #cbd5e1; font-size:16px;" placeholder="Type your note..."></textarea>
+      <div class="app-header"><span class="app-title">Notes</span></div>
+      <div class="app-body" style="padding: 15px;">
+        <textarea id="noteInput" style="width:100%; height:100%; padding:12px; border-radius:10px; border:1px solid #cbd5e1; font-size:16px;" placeholder="Type notes here..."></textarea>
       </div>
     </div>
 
-    <!-- Settings App Window -->
-    <div id="settingsApp" class="app-window">
-      <div class="app-header">
-        <span class="app-title">Settings</span>
-      </div>
+    <!-- Calculator App Window -->
+    <div id="calcApp" class="app-window">
+      <div class="app-header"><span class="app-title">Calculator</span></div>
       <div class="app-body">
-        <h3 style="margin-bottom:8px;">Mobile Web OS</h3>
-        <p>Borderless vertical screen layout centered directly in the browser window.</p>
+        <div id="calcDisplay" class="calc-display">0</div>
+        <div class="calc-grid">
+          <button class="calc-btn" onclick="clearCalc()">C</button>
+          <button class="calc-btn" onclick="appendCalc('/')">/</button>
+          <button class="calc-btn" onclick="appendCalc('*')">*</button>
+          <button class="calc-btn op" onclick="appendCalc('-')">-</button>
+          <button class="calc-btn" onclick="appendCalc('7')">7</button>
+          <button class="calc-btn" onclick="appendCalc('8')">8</button>
+          <button class="calc-btn" onclick="appendCalc('9')">9</button>
+          <button class="calc-btn op" onclick="appendCalc('+')">+</button>
+          <button class="calc-btn" onclick="appendCalc('4')">4</button>
+          <button class="calc-btn" onclick="appendCalc('5')">5</button>
+          <button class="calc-btn" onclick="appendCalc('6')">6</button>
+          <button class="calc-btn op" onclick="runCalc()">=</button>
+          <button class="calc-btn" onclick="appendCalc('1')">1</button>
+          <button class="calc-btn" onclick="appendCalc('2')">2</button>
+          <button class="calc-btn" onclick="appendCalc('3')">3</button>
+          <button class="calc-btn" onclick="appendCalc('0')">0</button>
+        </div>
       </div>
     </div>
 
-    <!-- Bottom Home Bar Indicator -->
+    <!-- Paint App Window -->
+    <div id="paintApp" class="app-window">
+      <div class="app-header">
+        <span class="app-title">Canvas Paint</span>
+        <button onclick="clearCanvas()" style="padding: 4px 8px;">Clear</button>
+      </div>
+      <div class="app-body">
+        <canvas id="paintCanvas" style="flex:1; background: white; cursor: crosshair;"></canvas>
+      </div>
+    </div>
+
+    <!-- Functional Google App Window -->
+    <div id="googleApp" class="app-window">
+      <div class="app-header"><span class="app-title">Search</span></div>
+      <div class="app-body google-body">
+        
+        <!-- Google Multi-Color Logo -->
+        <div class="google-logo-text">
+          <span class="g-blue">G</span><span class="g-red">o</span><span class="g-yellow">o</span><span class="g-blue">g</span><span class="g-green">l</span><span class="g-red">e</span>
+        </div>
+
+        <!-- Search Input Bar -->
+        <div class="search-box">
+          🔍
+          <input type="text" id="googleSearchInput" class="search-input" placeholder="Search Google or type a URL" onkeydown="executeGoogleSearch(event)">
+        </div>
+
+        <!-- Suggestion Pills -->
+        <div class="pill-container">
+          <div class="pill" onclick="quickSearch('Weather')">🌤️ Weather</div>
+          <div class="pill" onclick="quickSearch('News')">📰 News</div>
+          <div class="pill" onclick="quickSearch('Web OS Specs')">💻 OS Specs</div>
+        </div>
+
+        <!-- Results Container -->
+        <div id="searchResults" class="search-results"></div>
+
+      </div>
+    </div>
+
+    <!-- Home Bar Indicator -->
     <div class="home-bar-container" onclick="closeAllApps()">
       <div class="home-bar"></div>
     </div>
@@ -208,30 +498,133 @@
   </div>
 
   <script>
+    // Clock Implementation
     function updateClock() {
       const now = new Date();
-      const hours = String(now.getHours()).padStart(2, '0');
-      const minutes = String(now.getMinutes()).padStart(2, '0');
-      document.getElementById('clock').textContent = `${hours}:${minutes}`;
+      const timeStr = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+      document.querySelectorAll('.clock').forEach(el => el.textContent = timeStr);
     }
     setInterval(updateClock, 1000);
     updateClock();
 
+    // Lock Screen Passcode Logic
+    let enteredPasscode = "";
+    const correctPasscode = "1234";
+
+    function pressKey(num) {
+      if (enteredPasscode.length < 4) {
+        enteredPasscode += num;
+        updatePasscodeDots();
+      }
+      if (enteredPasscode.length === 4) {
+        if (enteredPasscode === correctPasscode) {
+          document.getElementById('lockScreen').classList.add('unlocked');
+        } else {
+          enteredPasscode = "";
+          setTimeout(updatePasscodeDots, 200);
+        }
+      }
+    }
+
+    function updatePasscodeDots() {
+      const dots = document.querySelectorAll('.dot');
+      dots.forEach((dot, index) => {
+        if (index < enteredPasscode.length) {
+          dot.classList.add('filled');
+        } else {
+          dot.classList.remove('filled');
+        }
+      });
+    }
+
+    // Window Management
     function openApp(appId) {
       const app = document.getElementById(appId);
       if (app) app.classList.add('active');
+      if(appId === 'paintApp') initCanvas();
     }
 
     function closeAllApps() {
-      const apps = document.querySelectorAll('.app-window');
-      apps.forEach(app => app.classList.remove('active'));
+      document.querySelectorAll('.app-window').forEach(app => app.classList.remove('active'));
     }
 
-    const noteInput = document.getElementById('noteInput');
-    noteInput.value = localStorage.getItem('webos_note') || '';
-    noteInput.addEventListener('input', (e) => {
-      localStorage.setItem('webos_note', e.target.value);
-    });
+    // Calculator Engine
+    let calcExpr = "";
+    function appendCalc(val) {
+      calcExpr += val;
+      document.getElementById('calcDisplay').textContent = calcExpr;
+    }
+    function clearCalc() {
+      calcExpr = "";
+      document.getElementById('calcDisplay').textContent = "0";
+    }
+    function runCalc() {
+      try {
+        calcExpr = String(eval(calcExpr));
+        document.getElementById('calcDisplay').textContent = calcExpr;
+      } catch {
+        document.getElementById('calcDisplay').textContent = "Error";
+        calcExpr = "";
+      }
+    }
+
+    // HTML5 Canvas Paint
+    let canvas, ctx, painting = false;
+    function initCanvas() {
+      canvas = document.getElementById('paintCanvas');
+      ctx = canvas.getContext('2d');
+      canvas.width = canvas.parentElement.clientWidth;
+      canvas.height = canvas.parentElement.clientHeight;
+      ctx.lineWidth = 4;
+      ctx.lineCap = 'round';
+      ctx.strokeStyle = '#000000';
+
+      canvas.onmousedown = (e) => { painting = true; draw(e); };
+      canvas.onmouseup = () => { painting = false; ctx.beginPath(); };
+      canvas.onmousemove = draw;
+    }
+    function draw(e) {
+      if (!painting) return;
+      const rect = canvas.getBoundingClientRect();
+      ctx.lineTo(e.clientX - rect.left, e.clientY - rect.top);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(e.clientX - rect.left, e.clientY - rect.top);
+    }
+    function clearCanvas() {
+      if(ctx) ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+
+    // Google App Search Engine
+    function executeGoogleSearch(e) {
+      if (e.key === 'Enter') {
+        const query = document.getElementById('googleSearchInput').value.trim();
+        performSearch(query);
+      }
+    }
+
+    function quickSearch(query) {
+      document.getElementById('googleSearchInput').value = query;
+      performSearch(query);
+    }
+
+    function performSearch(query) {
+      const resultsContainer = document.getElementById('searchResults');
+      if (!query) return;
+
+      resultsContainer.innerHTML = `
+        <div class="result-card">
+          <div class="result-url">https://www.google.com › search</div>
+          <div class="result-title">Search results for "${query}"</div>
+          <div class="result-snippet">Showing mock OS search results for query '${query}'. Operating inside single-file Web OS shell environment.</div>
+        </div>
+        <div class="result-card">
+          <div class="result-url">https://en.wikipedia.org › wiki › ${encodeURIComponent(query)}</div>
+          <div class="result-title">${query} - Overview & Information</div>
+          <div class="result-snippet">Explore comprehensive details, background information, and virtual documentation regarding ${query}.</div>
+        </div>
+      `;
+    }
   </script>
 </body>
 </html>
