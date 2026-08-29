@@ -14,7 +14,7 @@
     }
 
     body {
-      background: #0f172a;
+      background: #090d16;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -22,32 +22,22 @@
       overflow: hidden;
     }
 
-    /* Mobile Device Frame */
-    .phone-container {
-      width: 375px;
-      height: 750px;
-      background: #000;
-      border-radius: 40px;
-      border: 12px solid #1e293b;
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
-      position: relative;
-      overflow: hidden;
-    }
-
-    /* Screen Area */
+    /* Vertical OS Container directly centered with no outer bezel */
     .screen {
-      width: 100%;
-      height: 100%;
+      width: 390px;
+      height: 844px;
+      max-height: 100vh;
       background: linear-gradient(135deg, #3b82f6, #8b5cf6, #ec4899);
       position: relative;
       display: flex;
       flex-direction: column;
+      overflow: hidden;
     }
 
     /* Top Status Bar */
     .status-bar {
-      height: 40px;
-      padding: 0 20px;
+      height: 44px;
+      padding: 0 24px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -60,11 +50,11 @@
     /* App Grid Layout */
     .home-screen {
       flex: 1;
-      padding: 20px;
+      padding: 24px;
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       grid-auto-rows: max-content;
-      gap: 20px 15px;
+      gap: 24px 16px;
     }
 
     .app-icon {
@@ -80,22 +70,22 @@
     }
 
     .icon-box {
-      width: 60px;
-      height: 60px;
-      border-radius: 16px;
+      width: 62px;
+      height: 62px;
+      border-radius: 18px;
       display: flex;
       justify-content: center;
       align-items: center;
-      font-size: 28px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      font-size: 30px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
     }
 
     .app-name {
       color: white;
-      font-size: 11px;
+      font-size: 12px;
       margin-top: 6px;
       text-align: center;
-      text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+      text-shadow: 0 1px 3px rgba(0,0,0,0.6);
     }
 
     /* Application Window */
@@ -118,19 +108,20 @@
     }
 
     .app-header {
-      height: 50px;
+      height: 54px;
       background: #ffffff;
       border-bottom: 1px solid #e2e8f0;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 16px;
-      margin-top: 30px;
+      padding: 0 20px;
+      margin-top: 34px;
     }
 
     .app-title {
       font-weight: 700;
       color: #0f172a;
+      font-size: 18px;
     }
 
     .app-body {
@@ -142,7 +133,7 @@
 
     /* Home Indicator Navigation Bar */
     .home-bar-container {
-      height: 25px;
+      height: 30px;
       width: 100%;
       display: flex;
       justify-content: center;
@@ -154,9 +145,9 @@
     }
 
     .home-bar {
-      width: 130px;
+      width: 134px;
       height: 5px;
-      background: rgba(255, 255, 255, 0.8);
+      background: rgba(255, 255, 255, 0.85);
       border-radius: 3px;
     }
 
@@ -167,62 +158,56 @@
 </head>
 <body>
 
-  <div class="phone-container">
-    <div class="screen">
-      
-      <!-- System Status Bar -->
-      <div class="status-bar">
-        <span id="clock">12:00</span>
-        <span>100% 🔋</span>
-      </div>
-
-      <!-- Main Mobile Home Screen -->
-      <div class="home-screen">
-        <div class="app-icon" onclick="openApp('notesApp')">
-          <div class="icon-box" style="background: #f59e0b;">📝</div>
-          <span class="app-name">Notes</span>
-        </div>
-        <div class="app-icon" onclick="openApp('calcApp')">
-          <div class="icon-box" style="background: #10b981;">🔢</div>
-          <span class="app-name">Calculator</span>
-        </div>
-        <div class="app-icon" onclick="openApp('settingsApp')">
-          <div class="icon-box" style="background: #64748b;">⚙️</div>
-          <span class="app-name">Settings</span>
-        </div>
-      </div>
-
-      <!-- Notes App Window -->
-      <div id="notesApp" class="app-window">
-        <div class="app-header">
-          <span class="app-title">Notes</span>
-        </div>
-        <div class="app-body">
-          <textarea id="noteInput" style="width:100%; height:80%; padding:10px; border-radius:8px; border:1px solid #cbd5e1;" placeholder="Type your note..."></textarea>
-        </div>
-      </div>
-
-      <!-- Settings App Window -->
-      <div id="settingsApp" class="app-window">
-        <div class="app-header">
-          <span class="app-title">Settings</span>
-        </div>
-        <div class="app-body">
-          <h3>Web Mobile OS v1.0</h3>
-          <p style="margin-top:10px;">Single-file architecture using DOM transitions and embedded storage.</p>
-        </div>
-      </div>
-
-      <!-- Bottom Home Bar Indicator -->
-      <div class="home-bar-container" onclick="closeAllApps()">
-        <div class="home-bar"></div>
-      </div>
-
+  <!-- Clean Vertical Screen Container -->
+  <div class="screen">
+    
+    <!-- System Status Bar -->
+    <div class="status-bar">
+      <span id="clock">12:00</span>
+      <span>100% 🔋</span>
     </div>
+
+    <!-- Main Mobile Home Screen -->
+    <div class="home-screen">
+      <div class="app-icon" onclick="openApp('notesApp')">
+        <div class="icon-box" style="background: #f59e0b;">📝</div>
+        <span class="app-name">Notes</span>
+      </div>
+      <div class="app-icon" onclick="openApp('settingsApp')">
+        <div class="icon-box" style="background: #64748b;">⚙️</div>
+        <span class="app-name">Settings</span>
+      </div>
+    </div>
+
+    <!-- Notes App Window -->
+    <div id="notesApp" class="app-window">
+      <div class="app-header">
+        <span class="app-title">Notes</span>
+      </div>
+      <div class="app-body">
+        <textarea id="noteInput" style="width:100%; height:80%; padding:12px; border-radius:10px; border:1px solid #cbd5e1; font-size:16px;" placeholder="Type your note..."></textarea>
+      </div>
+    </div>
+
+    <!-- Settings App Window -->
+    <div id="settingsApp" class="app-window">
+      <div class="app-header">
+        <span class="app-title">Settings</span>
+      </div>
+      <div class="app-body">
+        <h3 style="margin-bottom:8px;">Mobile Web OS</h3>
+        <p>Borderless vertical screen layout centered directly in the browser window.</p>
+      </div>
+    </div>
+
+    <!-- Bottom Home Bar Indicator -->
+    <div class="home-bar-container" onclick="closeAllApps()">
+      <div class="home-bar"></div>
+    </div>
+
   </div>
 
   <script>
-    // System Clock Functionality
     function updateClock() {
       const now = new Date();
       const hours = String(now.getHours()).padStart(2, '0');
@@ -232,12 +217,9 @@
     setInterval(updateClock, 1000);
     updateClock();
 
-    // App Window Manager
     function openApp(appId) {
       const app = document.getElementById(appId);
-      if (app) {
-        app.classList.add('active');
-      }
+      if (app) app.classList.add('active');
     }
 
     function closeAllApps() {
@@ -245,7 +227,6 @@
       apps.forEach(app => app.classList.remove('active'));
     }
 
-    // Persistent Note Storage
     const noteInput = document.getElementById('noteInput');
     noteInput.value = localStorage.getItem('webos_note') || '';
     noteInput.addEventListener('input', (e) => {
